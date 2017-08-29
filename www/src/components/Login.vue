@@ -6,8 +6,8 @@
                     <!-- THIS SHOWS IF SHOWREGISTER IS FALSE -->
                     <form @submit.prevent="" v-if="!showRegister">
                         <h3>Log In:</h3>
-                        <input type="text" placeholder="email">
-                        <input type="password" placeholder="password">
+                        <input type="text" placeholder="email" v-model="email">
+                        <input type="password" placeholder="password" v-model="password">
                         <button type="submit" class="btn">Log In</button>
                         <button type="button" class="btn" @click="toggleRegister">Register</button>
                     </form>
@@ -65,7 +65,13 @@
                     password: this.password
                 }
                 this.$store.dispatch("registerUser", newUser)
-                
+            },
+            login: function() {
+                var credentials = {
+                    email: this.email,
+                    password: this.password
+                }
+                this.$store.dispatch("login", credentials)
             }
         },
     }
