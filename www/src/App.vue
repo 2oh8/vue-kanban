@@ -20,11 +20,8 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background: url("http://i.imgur.com/hQcZDWY.jpg") center center fixed;
+  height: 100%;
+  padding-bottom: 100rem;
 }
 </style>

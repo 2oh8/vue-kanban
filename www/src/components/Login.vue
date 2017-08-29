@@ -2,7 +2,7 @@
     <div class="Login">
         <div class="row">
             <div class="col s6 offset-s3">
-                <div class="card-panel z-depth-5">
+                <div class="glass card-panel z-depth-5">
                     <!-- THIS SHOWS IF SHOWREGISTER IS FALSE -->
                     <form @submit.prevent="" v-if="!showRegister">
                         <h3>Log In:</h3>
@@ -73,5 +73,8 @@
 </script>
 
 <style scoped>
-
+.glass {
+    background: rgba(0, 0, 0, .5);
+    color: white;
+}
 </style>
