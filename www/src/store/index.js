@@ -21,7 +21,7 @@ var store = new vuex.Store({
     activeBoard: {},
     error: {},
     registered: false,
-    loggedIn: false
+    loggedIn: null
   },
   mutations: {
     setBoards(state, data){
@@ -30,8 +30,8 @@ var store = new vuex.Store({
     setRegistered(state, data){
       state.registered = true
     },
-    setLoggedIn(state, data) {
-      state.loggedIn = true;
+    setLoggedIn(state, value) {
+      state.loggedIn = value;
     },
     handleError(state, err){
       state.error = err
@@ -54,6 +54,22 @@ var store = new vuex.Store({
       auth.post('/login', credentials)
         .then(res => {
           commit('setLoggedIn')
+        }).catch(err => {
+          commit('handleError', err)
+        })
+    },
+
+    authenticate({commit, dispatch}) {
+      auth('/authenticate')
+        .then(res =>{
+          console.log(res)
+          if (res.data.data._id){
+            console.log('Ready to commit!')
+            commit('setLoggedIn', true)
+          }else{
+            commit('setLoggedIn', false)
+            console.log('No session found!')
+          }
         }).catch(err => {
           commit('handleError', err)
         })

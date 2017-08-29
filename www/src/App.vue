@@ -11,6 +11,9 @@ import Login from './components/Login'
 
 export default {
   name: 'app',
+  mounted() {
+    this.$store.dispatch('authenticate')
+  },
   data() {
     return {}
   },
@@ -31,5 +34,6 @@ export default {
   background: url("http://i.imgur.com/hQcZDWY.jpg") center center fixed;
   height: 100%;
   padding-bottom: 100rem;
+  background-repeat: no-repeat;
 }
 </style>
