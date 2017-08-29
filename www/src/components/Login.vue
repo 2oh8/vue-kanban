@@ -14,9 +14,9 @@
                     <!-- THIS SHOWS IF SHOWREGISTER IS TRUE -->
                     <form @submit.prevent="registerUser" v-else>
                         <h3>Register:</h3>
-                        <input type="text" placeholder="name" required="true">
-                        <input type="text" placeholder="email" required="true">
-                        <input type="password" placeholder="password" required="true">
+                        <input type="text" placeholder="name" required="true" v-model="name">
+                        <input type="text" placeholder="email" required="true" v-model="email">
+                        <input type="password" placeholder="password" required="true" v-model="password">
                         <button type="submit" class="btn">Register</button>
                     </form>
                 </div>
