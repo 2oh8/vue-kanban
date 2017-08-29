@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="createBoard">Add Board</button>
+    <button class="btn blue darken-1" @click="createBoard"><i class="material-icons add-button">note_add</i></button>
     <ul>
       <li v-for="board in boards">
         <router-link :to="'/boards/'+board._id">{{board.name}}</router-link> <span @click="removeBoard(board)">x</span></li>
@@ -40,5 +40,7 @@
 </script>
 
 <style scoped>
-
+.add-button{
+  font-size: 2rem;
+}
 </style>

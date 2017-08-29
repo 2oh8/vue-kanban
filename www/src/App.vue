@@ -1,13 +1,15 @@
 <template>
   <div id="app">
+    <NavBar></NavBar>
     <router-view v-if="loggedIn"></router-view>
-    <Login v-else></Login>
+    <Login v-else-if="loggedIn==false"></Login>
   </div>
 </template>
 
 <script>
 import Error from './components/Error'
 import Login from './components/Login'
+import NavBar from './components/NavBar'
 
 export default {
   name: 'app',
@@ -19,7 +21,8 @@ export default {
   },
   components:{
     Error,
-    Login
+    Login,
+    NavBar
   },
   computed: {
     loggedIn() {
