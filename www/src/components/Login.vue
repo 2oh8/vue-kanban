@@ -4,7 +4,7 @@
             <div class="col s6 offset-s3">
                 <div class="glass card-panel z-depth-5">
                     <!-- THIS SHOWS IF SHOWREGISTER IS FALSE -->
-                    <form @submit.prevent="" v-if="!showRegister">
+                    <form @submit.prevent="login" v-if="!showRegister">
                         <h3>Log In:</h3>
                         <input type="text" placeholder="email" v-model="email">
                         <input type="password" placeholder="password" v-model="password">
@@ -12,12 +12,13 @@
                         <button type="button" class="btn" @click="toggleRegister">Register</button>
                     </form>
                     <!-- THIS SHOWS IF SHOWREGISTER IS TRUE -->
-                    <form @submit.prevent="registerUser" v-else>
+                    <form @submit.prevent="registerUser" v-else-if="!loggedIn && !registered">
                         <h3>Register:</h3>
                         <input type="text" placeholder="name" required="true" v-model="name">
                         <input type="text" placeholder="email" required="true" v-model="email">
                         <input type="password" placeholder="password" required="true" v-model="password">
                         <button type="submit" class="btn">Register</button>
+                        <button type="button" class="btn" @click="toggleRegister">Back to Log-In</button>
                     </form>
                 </div>
             </div>
@@ -26,10 +27,8 @@
         <div class="row" v-if="registered && showRegister">
             <div class="col s6 offset-s3 white-text">
                 <div class="card-panel green accent-4 z-depth-5">
-                    <h5>New user registered successfully!</h5><i class="material-icons">check_circle</i>
-                    <div class="row">
-                        <button type="button" class="btn" @click="toggleRegister">Log In</button>
-                    </div>
+                    <p><i class="material-icons">check_circle</i> New user registered successfully!   <button type="button" class="btn" @click="toggleRegister">Log In</button></p>
+                    
                 </div>
             </div>
         </div>
@@ -50,6 +49,9 @@
         computed: {
             registered() {
                 return this.$store.state.registered
+            }
+            loggedIn() {
+                return this.$store.state.loggedIn
             }
             // error(){
             //   return this.$store.state.error
@@ -80,7 +82,7 @@
 
 <style scoped>
 .glass {
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, .8);
     color: white;
 }
 </style>

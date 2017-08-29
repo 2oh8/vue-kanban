@@ -2,7 +2,6 @@ let router = require('express').Router()
 let Users = require('../models/user')
 
 router.post('/register', (req, res) => {
-  debugger
   Users.create(req.body)
     .then((user) => {
       req.session.uid = user._id
@@ -32,6 +31,7 @@ router.post('/login', (req, res) => {
           req.session.save()
           user.password = null
           delete user.password
+          console.log('Logged In')
           res.send({
             message: 'successfully logged in',
             data: user

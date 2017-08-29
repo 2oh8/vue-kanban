@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Login></Login>
-    <router-view></router-view>
+    <router-view v-if="loggedIn"></router-view>
+    <Login v-else></Login>
   </div>
 </template>
 
@@ -11,9 +11,17 @@ import Login from './components/Login'
 
 export default {
   name: 'app',
+  data() {
+    return {}
+  },
   components:{
     Error,
     Login
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.loggedIn
+    }
   }
 }
 </script>
