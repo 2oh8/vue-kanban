@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import io from 'socket.io-client'
 import store from './store'
+import 'materialize-css/dist/css/materialize.min.css'
 
 
 let socket = io('http://localhost:3000')
