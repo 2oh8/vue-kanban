@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <error></error>
+    <Login></Login>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Error from './components/Error'
+import Login from './components/Login'
+
 export default {
   name: 'app',
   components:{
-    Error
+    Error,
+    Login
   }
 }
 </script>
