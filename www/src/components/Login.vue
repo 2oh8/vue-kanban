@@ -49,7 +49,7 @@
         computed: {
             registered() {
                 return this.$store.state.registered
-            }
+            },
             loggedIn() {
                 return this.$store.state.loggedIn
             }
