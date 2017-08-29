@@ -58,6 +58,7 @@ var store = new vuex.Store({
       auth.post('/login', credentials)
         .then(res => {
           commit('setLoggedIn', true)
+          commit('setName', res.data.data.name)
         }).catch(err => {
           commit('handleError', err)
         })
@@ -110,7 +111,6 @@ var store = new vuex.Store({
         })
     },
     createBoard({commit, dispatch}, board) {
-      debugger
       api.post('boards/',board)
         .then(res => {
           dispatch('getBoards')
@@ -122,7 +122,7 @@ var store = new vuex.Store({
     removeBoard({commit, dispatch}, board) {
       api.delete('boards/'+board._id)
         .then(res => {
-          this.getBoards()
+          dispatch('getBoards')
         })
         .catch(err=>{
           commit('handleError', err)

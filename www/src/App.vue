@@ -35,8 +35,8 @@ export default {
 <style>
 #app {
   background: url("http://i.imgur.com/hQcZDWY.jpg") center center fixed;
-  height: 100%;
-  padding-bottom: 100rem;
+  height: 105vh;
   background-repeat: no-repeat;
+  overflow-y: none;
 }
 </style>

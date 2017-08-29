@@ -4,8 +4,8 @@
             <div class="nav-wrapper">
                 <a class="brand-logo left">Vue KanBan</a>
                 <a v-if="loggedIn" class="brand-logo center user-id"><i class="material-icons">perm_identity</i> Welcome, {{ name }}!</a>
-                <ul id="nav-mobile" class="right toolbar">
-                    <li v-if="loggedIn"><router-link :to="/boards/">Boards</router-link></li>
+                <ul id="" class="right toolbar">
+                    <li v-if="loggedIn"><router-link :to='/boards/'>Boards</router-link></li>
                     <li v-if="loggedIn"><button type="button" class="btn blue darken-1" @click="logout">Log Out</button></li>
                 </ul>
             </div>

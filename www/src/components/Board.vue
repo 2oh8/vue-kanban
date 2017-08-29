@@ -1,6 +1,13 @@
 <template>
   <div> 
-    Active Board: {{board}}
+    
+    <div class="row">
+      <div class="col s12">
+          <h5 class="grey-text text-darken-2">Active Board: {{board}}</h5>
+        <div class="card-panel board-lifter z-depth-5">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,5 +26,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .board-lifter{
+    background: rgba(0, 0, 0, .5);
+    height: 85vh
+  }
 </style>
