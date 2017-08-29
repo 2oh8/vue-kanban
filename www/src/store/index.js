@@ -37,7 +37,7 @@ var store = new vuex.Store({
     //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
 
     registerUser({commit, dispatch}, newUser) {
-      api.post('/register', newUser)
+      auth.post('/register', newUser)
         .then(res => {
           commit('setRegistered')
         })
