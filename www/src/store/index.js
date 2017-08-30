@@ -61,6 +61,7 @@ var store = new vuex.Store({
           commit('setName', res.data.data.name)
         }).catch(err => {
           commit('handleError', err)
+          commit('setLoggedIn', false)
         })
     },
 

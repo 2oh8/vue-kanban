@@ -6,8 +6,8 @@
                     <!-- THIS SHOWS IF SHOWREGISTER IS FALSE -->
                     <form @submit.prevent="login" v-if="!showRegister">
                         <h3>Log In:</h3>
-                        <input type="text" placeholder="email" v-model="email">
-                        <input type="password" placeholder="password" v-model="password">
+                        <input type="text" placeholder="email" v-model="email" required="true">
+                        <input type="password" placeholder="password" v-model="password" required="true">
                         <button type="submit" class="btn">Log In</button>
                         <button type="button" class="btn" @click="toggleRegister">Register</button>
                     </form>
