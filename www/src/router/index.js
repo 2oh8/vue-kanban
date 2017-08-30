@@ -8,6 +8,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      // front end routes only
       path: '/',
       name: 'Boards',
       component: Boards
