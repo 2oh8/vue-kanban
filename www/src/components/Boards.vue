@@ -2,8 +2,8 @@
   <div>
     <div class="row tab-row">
 
-      <div class="tab card-panel">
-        <button class="btn-floating z-depth-0 transparent" @click="createBoard"><i class="material-icons add-button blue-text text-darken-1">note_add</i></button>
+      <div class="col s1 add-button">
+        <button class="center-align add-button btn-floating hoverable white" @click="createBoard"><i class="material-icons add-button blue-text text-darken-1">note_add</i></button>
       </div>
 
     </div>
@@ -11,7 +11,7 @@
 
       <ul class="collection z-depth-5">
         <div v-for="board in boards">
-          <li class="collection-item avatar panel">
+          <li class="collection-item hoverable zoomIn avatar panel">
             <i class="material-icons circle green"><i class="material-icons">dashboard</i></i>
             <router-link :to="'/boards/'+board._id">
               <span class="title">{{board.name}}</span>
@@ -65,16 +65,31 @@
   .add-button {
     font-size: 2rem;
   }
+  .add-button {
+    
+    text-align: center;
+  }
 
-  .tab {
-    width: 10vw;
-    margin-bottom: 0;
-    left: 0;
-    padding-bottom: 0;
+  .collection{
+    border: none !important;
   }
   .panel {
     border-bottom: 1px solid #e0e0e0 !important;
   }
+  .zoomIn {
+        animation: zoomIn 300ms;
+    }
+
+    @keyframes zoomIn {
+        from {
+            opacity: 0;
+            transform: scale3d(.3, .3, .3);
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
 
   
 </style>

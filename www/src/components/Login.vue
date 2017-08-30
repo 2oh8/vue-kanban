@@ -2,7 +2,7 @@
     <div class="Login">
         <div class="row">
             <div class="col s6 offset-s3">
-                <div class="glass login-card card-panel z-depth-5">
+                <div class="glass zoomIn login-card card-panel z-depth-5">
                     <!-- THIS SHOWS IF SHOWREGISTER IS FALSE -->
                     <form @submit.prevent="login" v-if="!showRegister">
                         <h3>Log In:</h3>
@@ -89,5 +89,21 @@
 
     .login-card {
         margin-top: 8rem;
+        
+    }
+
+    .zoomIn {
+        animation: zoomIn 300ms;
+    }
+
+    @keyframes zoomIn {
+        from {
+            opacity: 0;
+            transform: scale3d(.3, .3, .3);
+        }
+
+        50% {
+            opacity: 1;
+        }
     }
 </style>

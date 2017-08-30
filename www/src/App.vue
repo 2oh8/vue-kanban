@@ -39,4 +39,5 @@ export default {
   background-repeat: no-repeat;
   overflow-y: none;
 }
+
 </style>
