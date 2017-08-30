@@ -19,6 +19,7 @@ var store = new vuex.Store({
   state: {
     name: '',
     boards: [],
+    lists: [],
     activeBoard: {},
     error: {},
     registered: false,
@@ -42,6 +43,9 @@ var store = new vuex.Store({
     },
     setActiveBoard(state, board) {
       state.activeBoard = board;
+    },
+    setLists(state, lists) {
+      state.lists = lists;
     }
   },
   actions: {
@@ -130,6 +134,27 @@ var store = new vuex.Store({
           dispatch('getBoards')
         })
         .catch(err=>{
+          commit('handleError', err)
+        })
+    },
+    // List Stuff:
+    getLists({commit, dispatch}, id) {
+      api('boards/'+id+'/lists') // created this in custom-routes/board-routes.js under boardLists
+      .then(res => {
+        console.log(res.data.data)
+        commit('setLists', res.data.data)
+        
+      })
+      .catch(err=>{
+        commit('handleError', err)
+      })
+
+    },
+    addList({commit, dispatch}, list) {
+      api.post('lists/', list)
+        .then(res => {
+          dispatch('getLists', list.boardId)
+        }).catch(err => {
           commit('handleError', err)
         })
     },

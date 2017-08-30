@@ -1,16 +1,19 @@
 <template>
     <div class="flex-container">
+        <!-- v-for goes in here -->
+        <div v-for="list in lists">
 
-        <div class="list flipInY card-panel grey lighten-3 z-depth-5">
-            <h5>Title</h5>
-            <p>Description</p>
-            
+            <div class="list flipInY card-panel grey lighten-3 z-depth-5">
+                <h5>{{list.name}}</h5>
+                <p>{{list.description}}</p>
+                
+            </div>
         </div>
 
         <!-- FORM FOR ADDING NEW LIST -->
         <div v-if="showListForm"class="list flipInY card-panel grey lighten-3 z-depth-5 grey-text">
-                <a @click="toggleAddList"><i class="hoverable material-icons grey-text">close</i></a>
-            <form @submit.prevent="">
+                <a @click="toggleAddList"><i class="material-icons grey-text">close</i></a>
+            <form @submit.prevent="addList">
                 <div class="row">
                     <input type="text" v-model="listTitle" required="true">
                 </div>
@@ -39,15 +42,30 @@
             }
         },
         mounted() {
-
+            this.$store.dispatch('getLists', this.$route.params.boardId)
         },
         computed: {
-
+            lists() {
+                return this.$store.state.lists
+                // still need to add v-for in HTML
+            },
+            activeBoard() {
+                return this.$store.state.activeBoard
+            }
         },
         methods: {
             toggleAddList: function () {
                 this.showListForm = !this.showListForm
             },
+            addList: function () {
+                console.log(this.activeBoard._id)
+                var newList = {
+                    name: this.listTitle,
+                    description: this.listDescription,
+                    boardId: this.$route.params.boardId
+                }
+                this.$store.dispatch("addList", newList)
+            }
         }
     }
 </script>
