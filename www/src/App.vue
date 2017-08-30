@@ -10,6 +10,7 @@
 import Error from './components/Error'
 import Login from './components/Login'
 import NavBar from './components/NavBar'
+import Lists from './components/Lists'
 
 export default {
   name: 'app',
@@ -35,7 +36,7 @@ export default {
 <style>
 #app {
   background: url("http://i.imgur.com/hQcZDWY.jpg") center center fixed;
-  height: 105vh;
+  height: 100vh;
   background-repeat: no-repeat;
   overflow-y: none;
 }

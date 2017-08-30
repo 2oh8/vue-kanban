@@ -2,9 +2,12 @@
   <div> 
     
     <div class="row">
-      <div class="col s12">
-          <h5 class="grey-text text-darken-2">Active Board: {{board}}</h5>
+      <div class="col s12 content-row">
+          <h5 class="grey-text text-darken-2">Board: {{board.name}}</h5>
         <div class="card-panel board-lifter zoomIn z-depth-5">
+
+          <lists></lists>
+
         </div>
       </div>
     </div>
@@ -12,10 +15,15 @@
 </template>
 
 <script>
+import Lists from './Lists'
+
 export default {
   name: 'board',
   mounted(){
     this.$root.$store.dispatch('getBoard',this.$route.params.id)
+  },
+  components: {
+    Lists
   },
   computed:{
     board(){
@@ -28,7 +36,17 @@ export default {
 <style scoped>
   .board-lifter{
     background: rgba(0, 0, 0, .5);
-    height: 85vh
+    height: 80vh;
+    position: center center absolute;
+    overflow-y: hidden;
+    overflow: scroll;
+    white-space: nowrap;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    -webkit-scrollbar-width: 0 !important;
+  }
+  .content-row{
+    width: auto;
   }
   .zoomIn {
         animation: zoomIn 300ms;

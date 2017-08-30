@@ -27,7 +27,7 @@
           <router-link :to="'/boards/'+board._id">
             <span class="title">{{board.name}}</span>
           </router-link>
-          <p>Date Created <br> Whatever
+          <p>{{board.description}}<br> {{board.created}}
           </p>
           <button class="secondary-content btn-floating z-depth-0 transparent" @click="removeBoard(board)"><i class="material-icons red-text">delete_forever</i></button>
         </li>

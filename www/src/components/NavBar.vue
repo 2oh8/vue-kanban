@@ -1,11 +1,11 @@
 <template>
-    <div class="NavBar">
+    <div class="NavBar flipInX">
         <nav class="glass">
-            <div class="nav-wrapper">
+            <div class="nav-wrapper ">
                 <a class="brand-logo left">Vue KanBan</a>
-                <a v-if="loggedIn" class="flipInX brand-logo center user-id"><i class="material-icons">perm_identity</i> Welcome, {{ name }}!</a>
+                <span v-show="loggedIn" class="brand-logo center user-id"><i class="material-icons">perm_identity</i> Welcome, {{ name }}!</span>
                 <ul id="" class="right toolbar">
-                    <li v-if="loggedIn"><router-link :to='/boards/'>Boards</router-link></li>
+                    <li v-if="loggedIn"><router-link :to="{name: 'Boards'}" class="">Boards</router-link></li>
                     <li v-if="loggedIn"><button type="button" class="btn blue darken-1" @click="logout">Log Out</button></li>
                 </ul>
             </div>
@@ -94,10 +94,10 @@
   }
 }
 
-/* .flipInX {
+.flipInX {
     -webkit-backface-visibility: visible !important;
   backface-visibility: visible !important;
   animation-name: flipInX;
-  animation-duration: 500ms;
-} */
+  animation-duration: 1000ms;
+}
 </style>

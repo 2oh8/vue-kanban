@@ -39,6 +39,9 @@ var store = new vuex.Store({
     },
     handleError(state, err){
       state.error = err
+    },
+    setActiveBoard(state, board) {
+      state.activeBoard = board;
     }
   },
   actions: {
@@ -78,7 +81,6 @@ var store = new vuex.Store({
     authenticate({commit, dispatch}) {
       auth('/authenticate')
         .then(res =>{
-          console.log(res)
           if (res.data.data._id){
             console.log('Ready to commit!')
             commit('setLoggedIn', true)
@@ -96,7 +98,9 @@ var store = new vuex.Store({
     getBoards({commit, dispatch}) {
       api('userboards')
         .then(res => {
+          console.log(res.data.data)
           commit('setBoards', res.data.data)
+          
         })
         .catch(err=>{
           commit('handleError', err)
