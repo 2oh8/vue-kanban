@@ -52,7 +52,6 @@
       }
     },
     mounted() {
-
       if (this.loggedIn) {
         this.$store.dispatch('getBoards')
       }

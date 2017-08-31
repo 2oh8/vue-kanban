@@ -113,6 +113,7 @@ var store = new vuex.Store({
     getBoard({commit, dispatch},id) {
       api('boards/' + id)
         .then(res => {
+          console.log("setting active board")
           commit('setActiveBoard', res.data.data)
         })
         .catch(err=>{

@@ -20,7 +20,7 @@ import Lists from './Lists'
 export default {
   name: 'board',
   mounted(){
-    this.$root.$store.dispatch('getBoard',this.$route.params.id)
+    this.$store.dispatch('getBoard',this.$route.params.boardId)
   },
   components: {
     Lists
