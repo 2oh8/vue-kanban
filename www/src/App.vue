@@ -11,6 +11,7 @@ import Error from './components/Error'
 import Login from './components/Login'
 import NavBar from './components/NavBar'
 import Lists from './components/Lists'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'app',
@@ -21,6 +22,7 @@ export default {
     return {}
   },
   components:{
+    draggable,
     Error,
     Login,
     NavBar
@@ -41,5 +43,17 @@ export default {
   overflow-y: none;
   background-size: cover;
 }
+.normal {
+  background-color: grey;
+}
+
+.drag {
+  background-color: green;
+}
+
+.dragArea {
+  min-height: 10px;
+}
+
 
 </style>

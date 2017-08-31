@@ -5,18 +5,34 @@
 
             <div class="list flipInY card-panel grey lighten-3 z-depth-5 list-card">
                 <div>
+                    <button class="secondary-content btn-floating z-depth-0 transparent" @click="deleteList(list._id)"><i class="material-icons red-text">delete_forever</i></button>
                     <h5>{{list.name}}</h5>
-                    <p>{{list.description}}</p>
+                    <p style="border-bottom: 1px solid black">{{list.description}}</p>
+                    <div v-if="showAddTaskForm" class="item card flipInX grey lighten-1">
+                        <form @submit.prevent="">
+                            <button @click="toggleTaskForm" class="secondary-content btn-floating z-depth-0 transparent" type="submit"><i class="material-icons grey-text text-darken-1">close</i></button>
+                            <button class="secondary-content btn-floating z-depth-0 transparent" type="submit"><i class="material-icons grey-text text-darken-1">playlist_add</i></button>
+                            <input type="text" placeholder="Task Name">
+                        </form>
+                    </div>
                 </div>
+
+                <!-- TASKS GO HERE -->
+
+                <tasks></tasks>
+
+                <!-- TASKS GO HERE -->
+
+
                 <div class="delete-list-button">
-                    <button type="button" class="btn red darken-1" @click="deleteList(list._id)">Delete</button>
+                    <button type="button" class="btn blue darken-1" @click="toggleTaskForm">Add Task</button>
                 </div>
             </div>
         </div>
 
         <!-- FORM FOR ADDING NEW LIST -->
-        <div v-if="showListForm"class="list flipInY card-panel grey lighten-3 z-depth-5 grey-text">
-                <a @click="toggleAddList"><i class="material-icons grey-text">close</i></a>
+        <div v-if="showListCreationForm" class="list flipInY card-panel grey lighten-3 z-depth-5 grey-text">
+            <a @click="toggleAddList"><i class="material-icons grey-text">close</i></a>
             <form @submit.prevent="addList">
                 <div class="row">
                     <input type="text" v-model="listTitle" required="true" placeholder="List Title">
@@ -31,19 +47,28 @@
         </div>
 
         <!-- BUTTON TO ADD A NEW LIST -->
-        <a v-else @click="toggleAddList"><div class="list flipInY card-panel grey lighten-3 z-depth-5 add-card grey-text"><i style="font-size: 30vw; text-align: center"class="material-icons">add</i></div></a>
+        <a v-else @click="toggleAddList">
+            <div class="list flipInY card-panel grey lighten-3 z-depth-5 add-card grey-text"><i style="font-size: 30vw; text-align: center" class="material-icons">add</i></div>
+        </a>
     </div>
 </template>
 
 <script>
+    import Tasks from './Tasks'
+    import draggable from 'vuedraggable';
+
     export default {
         name: 'lists',
         data: function () {
             return {
-                showListForm: false,
+                showListCreationForm: false,
+                showAddTaskForm: false,
                 listTitle: '',
                 listDescription: ''
             }
+        },
+        components: {
+            Tasks,
         },
         mounted() {
             this.$store.dispatch('getLists', this.$route.params.boardId)
@@ -59,7 +84,10 @@
         },
         methods: {
             toggleAddList: function () {
-                this.showListForm = !this.showListForm
+                this.showListCreationForm = !this.showListCreationForm
+            },
+            toggleTaskForm: function () {
+                this.showAddTaskForm = !this.showAddTaskForm
             },
             addList: function () {
                 // console.log(this.activeBoard._id)
@@ -73,43 +101,46 @@
                 this.listDescription = ''
                 this.toggleAddList()
             },
-            deleteList: function(listId) {
+            deleteList: function (listId) {
                 console.log(listId)
                 this.$store.dispatch('deleteList', listId)
             }
         }
     }
+
 </script>
 
 <style scoped>
     .list {
-        width: 30vw;
-        height: 50vh;
-        margin-right: 2vw;    
+        width: 25rem;
+        height: 70vh;
+        margin-right: 2vw;
     }
+
     .flex-container {
         display: flex;
-        width: 10000vw;
+        width: auto;
     }
 
     .list-card {
-        display:flex;
+        display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
 
-    .add-card{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: .5;
-    }
-    .add-card:hover {
-    transition-duration: 3000ms;
-    opacity: 1;
+    .add-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: .5;
     }
 
-    .delete-list-button{
+    .add-card:hover {
+        transition-duration: 3000ms;
+        opacity: 1;
+    }
+
+    .delete-list-button {
         align-self: flex-end;
     }
 
@@ -127,36 +158,70 @@
             opacity: 1;
         }
     }
+
     @keyframes flipInY {
-  from {
-    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
-    animation-timing-function: ease-in;
-    opacity: 0;
-  }
+        from {
+            transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+            animation-timing-function: ease-in;
+            opacity: 0;
+        }
 
-  40% {
-    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
-    animation-timing-function: ease-in;
-  }
+        40% {
+            transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+            animation-timing-function: ease-in;
+        }
 
-  60% {
-    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
-    opacity: 1;
-  }
+        60% {
+            transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+            opacity: 1;
+        }
 
-  80% {
-    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
-  }
+        80% {
+            transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+        }
 
-  to {
-    transform: perspective(400px);
-  }
-}
+        to {
+            transform: perspective(400px);
+        }
+    }
 
-.flipInY {
-  -webkit-backface-visibility: visible !important;
-  backface-visibility: visible !important;
-  animation-name: flipInY;
-  animation-duration: 500ms;
-}
+    .flipInY {
+        -webkit-backface-visibility: visible !important;
+        backface-visibility: visible !important;
+        animation-name: flipInY;
+        animation-duration: 500ms;
+    }
+
+    @keyframes flipInX {
+        from {
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            animation-timing-function: ease-in;
+            opacity: 0;
+        }
+
+        40% {
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            animation-timing-function: ease-in;
+        }
+
+        60% {
+            transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            opacity: 1;
+        }
+
+        80% {
+            transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+        }
+
+        to {
+            transform: perspective(400px);
+        }
+    }
+
+    .flipInX {
+        -webkit-backface-visibility: visible !important;
+        backface-visibility: visible !important;
+        animation-name: flipInX;
+        animation-duration: 1000ms;
+    }
 </style>

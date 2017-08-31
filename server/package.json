@@ -20,7 +20,8 @@
     "express": "^4.14.1",
     "express-session": "^1.15.0",
     "mongoose": "^4.8.1",
-    "socket.io": "^1.7.3"
+    "socket.io": "^1.7.3",
+    "vuedraggable": "^2.14.1"
   },
   "engines": {
     "node": ">= 8.0.0",

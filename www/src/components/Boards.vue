@@ -22,7 +22,7 @@
 
     <ul class="collection z-depth-5">
       <div v-for="board in boards">
-        <li class="collection-item hoverable zoomIn avatar panel">
+        <li class="collection-item hoverable flipInX avatar panel">
           <i class="material-icons circle green"><i class="material-icons">dashboard</i></i>
           <router-link :to="'/boards/'+board._id">
             <span class="title">{{board.name}}</span>
@@ -107,6 +107,39 @@
     animation: zoomIn 300ms;
   }
 
+  @keyframes flipInX {
+    from {
+      transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      animation-timing-function: ease-in;
+      opacity: 0;
+    }
+
+    40% {
+      transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      animation-timing-function: ease-in;
+    }
+
+    60% {
+      transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      opacity: 1;
+    }
+
+    80% {
+      transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    }
+
+    to {
+      transform: perspective(400px);
+    }
+  }
+
+  .flipInX {
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    animation-name: flipInX;
+    animation-duration: 1000ms;
+  }
+
   @keyframes zoomIn {
     from {
       opacity: 0;
@@ -117,19 +150,20 @@
       opacity: 1;
     }
   }
+
   @keyframes slideInLeft {
-  from {
-    transform: translate3d(-100%, 0, 0);
-    visibility: visible;
+    from {
+      transform: translate3d(-100%, 0, 0);
+      visibility: visible;
+    }
+
+    to {
+      transform: translate3d(0, 0, 0);
+    }
   }
 
-  to {
-    transform: translate3d(0, 0, 0);
+  .slideInLeft {
+    animation-name: slideInLeft;
+    animation-duration: 500ms;
   }
-}
-
-.slideInLeft {
-  animation-name: slideInLeft;
-  animation-duration: 500ms;
-}
 </style>

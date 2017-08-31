@@ -39,11 +39,10 @@ export default {
     height: 80vh;
     position: center center absolute;
     overflow-y: hidden;
-    overflow: scroll;
+    overflow-x: scroll;
     white-space: nowrap;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
-    -webkit-scrollbar-width: 0 !important;
   }
   .content-row{
     width: auto;
