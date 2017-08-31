@@ -17,7 +17,9 @@
                 </form>
             </div>
         </div>
-        
+        <!-- THIS IS A DUMMY PLACEHOLDER DIV TO MAINTAIN DRAGGABILITY IN EMPTY DRAG AREAS -->
+        <div class="card-panel transparent z-depth-0 item"></div>
+        <!-- END COMMENT -->
     </draggable>
 </div>
 </template>
