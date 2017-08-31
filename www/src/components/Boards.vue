@@ -72,6 +72,7 @@
             name: this.boardTitle,
             description: this.boardDescription
           })
+          this.toggleAddForm();
         }
       },
       removeBoard(board) {
