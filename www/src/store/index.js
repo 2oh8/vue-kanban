@@ -4,13 +4,13 @@ import vuex from 'vuex'
 
 let api = axios.create({
   baseURL: 'http://localhost:3000/api/',
-  timeout: 2000,
+  timeout: 200000,
   withCredentials: true
 })
 
 let auth = axios.create({
   baseURL: 'http://localhost:3000/',
-  timeout: 2000,
+  timeout: 200000,
   withCredentials: true
 })
 vue.use(vuex)
@@ -20,6 +20,7 @@ var store = new vuex.Store({
     name: '',
     boards: [],
     lists: [],
+    tasks: {},
     activeBoard: {},
     error: {},
     registered: false,
@@ -46,6 +47,11 @@ var store = new vuex.Store({
     },
     setLists(state, lists) {
       state.lists = lists;
+    },
+    setListTasks(state, data) {
+      vue.set(state.tasks, data.listId, data.data) // use this any time you are adding a property to an object on the fly (that you care about)
+      // state.tasks[data[0].listId] = data
+      // console.log(state.tasks)
     }
   },
   actions: {
@@ -142,9 +148,11 @@ var store = new vuex.Store({
     getLists({commit, dispatch}, id) {
       api('boards/'+id+'/lists') // created this in custom-routes/board-routes.js under boardLists
       .then(res => {
-        console.log(res.data.data)
+        // console.log(res)
         commit('setLists', res.data.data)
-        
+        // debugger
+          // list.listId = list._id
+          // dispatch('getListTasks', list)
       })
       .catch(err=>{
         commit('handleError', err)
@@ -152,10 +160,13 @@ var store = new vuex.Store({
 
     },
     addList({commit, dispatch}, list) {
+      console.log(list)
       api.post('lists/', list)
         .then(res => {
+          console.log("came back with response after adding List")
           dispatch('getLists', list.boardId)
         }).catch(err => {
+          console.log('failed to add list')
           commit('handleError', err)
         })
     },
@@ -167,6 +178,31 @@ var store = new vuex.Store({
         .catch(err => {
           commit('handleError', err)
         })
+    },
+
+    // Task Stuff
+    getListTasks({commit, dispatch}, data) {
+      console.log(data.listId)
+      // debugger
+      api('boards/' + data.boardId + '/lists/' + data.listId + '/tasks')
+        .then(res => {
+          res.data.listId = data.listId
+          commit('setListTasks', res.data) // check this
+        })
+        .catch(err => {
+          // debugger
+          console.log('getLIstTasks failed')
+          commit('handleError', err)
+        })
+    },
+    addTask({commit, dispatch}, newTask) {
+      if(newTask.name != ''){
+        api.post('tasks/', newTask)
+          .then(res => {
+            // console.log(newTask)
+            dispatch('getListTasks', newTask)
+          })
+      }
     },
 
 

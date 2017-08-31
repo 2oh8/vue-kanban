@@ -1,3 +1,4 @@
+
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import VueDraggable from 'vuedraggable'
@@ -10,13 +11,12 @@ import store from './store'
 import 'materialize-css/dist/css/materialize.min.css'
 
 Vue.use(require('vuedraggable'))
-let socket = io('http://localhost:3000')
+// let socket = io('http://localhost:3000')
 
-socket.on('CONNECTED', function (data) {
-  console.log(data)
-  socket.emit('update', { data: 'blarg', boardId: '3289748320' })
-})
-
+// socket.on('CONNECTED', function (data) {
+//   console.log(data)
+//   socket.emit('update', { data: 'blarg', boardId: '3289748320' })
+// })
 
 
 new Vue({
@@ -24,33 +24,5 @@ new Vue({
   store,
   router,
   template: '<App/>',
-  components: { App },
-  data: {
-    list: [{
-      name: "John"
-    }, {
-      name: "Joao"
-    }, {
-      name: "Jean"
-    }],
-    list2: [{
-      name: "Juan"
-    }, {
-      name: "Edgard"
-    }, {
-      name: "Johnson"
-    }]
-  },
-  methods: {
-    add: function() {
-      this.list.push({
-        name: 'Juan'
-      });
-    },
-    replace: function() {
-      this.list = [{
-        name: 'Edgard'
-      }]
-    }
-  }
+  components: { App }
 });

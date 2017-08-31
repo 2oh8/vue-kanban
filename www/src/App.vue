@@ -10,7 +10,7 @@
 import Error from './components/Error'
 import Login from './components/Login'
 import NavBar from './components/NavBar'
-import Lists from './components/Lists'
+import List from './components/List'
 import draggable from 'vuedraggable'
 
 export default {

@@ -1,70 +1,57 @@
-<template class="dragArea">
-    <div class="task-container dragArea">
-        <draggable v-model="exampleList" :options="{draggable:'.item', group:'tasks'}">
-            <div class="item card-panel zoomIn hoverable grey lighten-1" v-for="text in exampleList" :key="text">
-                <button class="secondary-content btn-floating z-depth-0 transparent" @click=""><i class="material-icons red-text">delete_forever</i></button>
-                <p class="card-title">{{text}}</p>
-                <div class="row">
+<template>
+<div class="dragArea">
+    
+    <draggable :options="{draggable:'.item', group:'tasks'}">
+        <div class="item card-panel zoomIn hoverable grey lighten-1" >
+            <button class="secondary-content btn-floating z-depth-0 transparent" @click=""><i class="material-icons red-text">delete_forever</i></button>
+            <p class="card-title">{{task.name}}</p>
+            <div class="row">
 
-                    <comments></comments>
+                <comment></comment>
 
-                </div>
-                <div class="row">
-                    <form @submit.prevent="">
-                        <input type="text" placeholder="Leave a Comment">
-                        <button class="secondary-content btn-floating z-depth-0 transparent" type="submit"><i class="material-icons green-text">comment</i></button>
-                    </form>
-                </div>
             </div>
-            <div class="item card-panel transparent z-depth-0">
+            <div class="row">
+                <form @submit.prevent="">
+                    <input type="text" placeholder="Leave a Comment">
+                    <button class="secondary-content btn-floating z-depth-0 transparent" type="submit"><i class="material-icons green-text">comment</i></button>
+                </form>
             </div>
-        </draggable>
-    </div>
-
+        </div>
+        
+    </draggable>
+</div>
 </template>
 
 <script>
     import draggable from 'vuedraggable';
-    import Comments from './Comments'
+    import Comment from './Comment'
 
     export default {
         name: 'tasks',
-        data: function () {
-            return {
-                taskTitle: '',
-                taskDescription: ''
-            },
-                ({
-                    exampleList: [
-                        'Do the Dishes',
-                        'Take out Trash',
-                        'Mow Lawn',
-                        'Water Plants',
-                        'Make Dinner'
-                    ]
-                })
-        },
+        props: [
+            "task"
+        ],
+
         components: {
             draggable,
-            Comments
+            Comment
         },
         mounted() {
 
         },
         computed: {
-
+            taskList() {
+                // return this.$store.state.lists // make sure this works after adding the add task functionality
+            },
         },
         methods: {
-            toggleTaskForm: function () {
-                this.showAddTaskForm = !this.showAddTaskForm
-            },
             add: function () {
                 this.exampleList.push({
                 });
             },
             replace: function () {
                 this.exampleList = []
-            }
+            },
         }
     }
 
