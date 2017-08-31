@@ -159,6 +159,18 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+    deleteList({commit, dispatch}, listId) {
+      api.delete('lists/' + listId)
+        .then(res => {
+          console.log(res)
+          dispatch('getLists', res.data.data.boardId)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+
+
     handleError({commit, dispatch}, err){
       commit('handleError', err)
     }

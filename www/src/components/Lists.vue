@@ -6,7 +6,7 @@
             <div class="list flipInY card-panel grey lighten-3 z-depth-5">
                 <h5>{{list.name}}</h5>
                 <p>{{list.description}}</p>
-                
+                <button type="button" class="btn red darken-1" @click="deleteList(list._id)">Delete</button>
             </div>
         </div>
 
@@ -58,13 +58,20 @@
                 this.showListForm = !this.showListForm
             },
             addList: function () {
-                console.log(this.activeBoard._id)
+                // console.log(this.activeBoard._id)
                 var newList = {
                     name: this.listTitle,
                     description: this.listDescription,
                     boardId: this.$route.params.boardId
                 }
                 this.$store.dispatch("addList", newList)
+                this.listTitle = ''
+                this.listDescription = ''
+                this.toggleAddList()
+            },
+            deleteList: function(listId) {
+                console.log(listId)
+                this.$store.dispatch('deleteList', listId)
             }
         }
     }
@@ -80,6 +87,7 @@
         display: flex;
         width: 10000vw;
     }
+
     .add-card{
     display: flex;
     justify-content: center;
