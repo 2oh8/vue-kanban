@@ -39,6 +39,7 @@ export default {
   height: 100vh;
   background-repeat: no-repeat;
   overflow-y: none;
+  background-size: cover;
 }
 
 </style>
