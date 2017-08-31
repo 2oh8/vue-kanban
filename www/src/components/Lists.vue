@@ -3,10 +3,14 @@
         <!-- v-for goes in here -->
         <div v-for="list in lists">
 
-            <div class="list flipInY card-panel grey lighten-3 z-depth-5">
-                <h5>{{list.name}}</h5>
-                <p>{{list.description}}</p>
-                <button type="button" class="btn red darken-1" @click="deleteList(list._id)">Delete</button>
+            <div class="list flipInY card-panel grey lighten-3 z-depth-5 list-card">
+                <div>
+                    <h5>{{list.name}}</h5>
+                    <p>{{list.description}}</p>
+                </div>
+                <div class="delete-list-button">
+                    <button type="button" class="btn red darken-1" @click="deleteList(list._id)">Delete</button>
+                </div>
             </div>
         </div>
 
@@ -15,10 +19,10 @@
                 <a @click="toggleAddList"><i class="material-icons grey-text">close</i></a>
             <form @submit.prevent="addList">
                 <div class="row">
-                    <input type="text" v-model="listTitle" required="true">
+                    <input type="text" v-model="listTitle" required="true" placeholder="List Title">
                 </div>
                 <div class="row">
-                    <input type="text" v-model="listDescription" required="true">
+                    <input type="text" v-model="listDescription" required="true" placeholder="Description">
                 </div>
                 <div class="row">
                     <button class="btn blue darken-1" type="submit">Add List</button>
@@ -88,6 +92,12 @@
         width: 10000vw;
     }
 
+    .list-card {
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
     .add-card{
     display: flex;
     justify-content: center;
@@ -97,6 +107,10 @@
     .add-card:hover {
     transition-duration: 3000ms;
     opacity: 1;
+    }
+
+    .delete-list-button{
+        align-self: flex-end;
     }
 
     .zoomIn {

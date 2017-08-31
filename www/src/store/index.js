@@ -162,7 +162,6 @@ var store = new vuex.Store({
     deleteList({commit, dispatch}, listId) {
       api.delete('lists/' + listId)
         .then(res => {
-          console.log(res)
           dispatch('getLists', res.data.data.boardId)
         })
         .catch(err => {
