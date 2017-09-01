@@ -1,11 +1,29 @@
 <template>
     <div class="flex-container">
         <div class="card comment-card grey lighten-2">
-            <p class="comment-chip">{{comment.text}}</p>
-            <button class="secondary-content btn-floating z-depth-0 transparent" @click="deleteComment"><i class="material-icons grey-text">delete_forever</i></button>
-            <div class="chip comment-chip grey lighten-1">
-                {{comment.commenterName}}  <!-- Need to add in path to post username to the comment -->
+            <!-- edit comment form that shows when editCommentForm is true -->
+            <div v-if="editCommentForm && isCreator">
+                <form @submit.prevent="editComment">
+                    <input class="flipInX" type="text" v-model="updatedText">
+                    <button class="flipInX secondary-content btn-floating z-depth-0 transparent" type="submit"><i class="material-icons green-text">done</i></button>
+                    <button class="flipInX secondary-content btn-floating z-depth-0 transparent" @click="toggleEditComment" type="button"><i class="material-icons red-text">close</i></button>
+                </form>
             </div>
+            <!-- what shows if the editCommentForm is false but the user is the creator-->
+            <div v-else-if="isCreator">
+                <p class="comment-chip">{{comment.text}}</p>
+                <button class="secondary-content btn-floating z-depth-0 transparent flipInX" @click="deleteComment"><i class="material-icons grey-text">delete_forever</i></button>
+                <button class="secondary-content btn-floating z-depth-0 transparent flipInX" @click="toggleEditComment"><i class="material-icons grey-text">edit</i></button>
+            </div>
+            <div v-else>
+                <p class="comment-chip">{{comment.text}}</p>
+            </div>
+
+            <div class="chip comment-chip grey lighten-1">
+                {{comment.commenterName}}
+                <!-- Need to add in path to post username to the comment -->
+            </div>
+
         </div>
     </div>
 </template>
@@ -17,6 +35,9 @@
         name: 'comments',
         data: function () {
             return {
+                editCommentForm: false,
+                updatedText: this.comment.text,
+                isCreator: false
             }
         },
         components: {
@@ -25,7 +46,7 @@
             'comment'
         ],
         mounted() {
-
+            this.setCreatorStatus()
         },
         computed: {
             lists() {
@@ -35,15 +56,23 @@
             activeBoard() {
                 return this.$store.state.activeBoard
             },
-            user () {
+            user() {
                 return this.$store.state.user
             }
         },
         methods: {
-            deleteComment(){
+            setCreatorStatus() {
+                if (this.comment.creatorId == this.user._id) {
+                    this.isCreator = true
+                }
+            },
+            toggleEditComment() {
+                this.editCommentForm = !this.editCommentForm
+            },
+            deleteComment() {
                 this.$store.dispatch('authenticate')
                     .then(res => {
-                        if(this.comment.creatorId == this.user._id){
+                        if (this.comment.creatorId == this.user._id) {
                             this.$store.dispatch("deleteComment", this.comment)
                         }
                         else {
@@ -53,17 +82,40 @@
                         console.log('something went wrong with the authenticate request')
                     })
 
+            },
+            editComment() {
+                debugger
+                this.$store.dispatch('authenticate')
+                    .then(res => {
+                        if (this.comment.creatorId == this.user._id) {
+                            console.log(this.comment)
+                            var newCommentObject = {
+                                text: this.updatedText,
+                                boardId: this.comment.boardId,
+                                listId: this.comment.listId,
+                                taskId: this.comment.taskId,
+                                id: this.comment._id
+                            }
+                            this.$store.dispatch('editComment', newCommentObject)
+                        }
+                        else {
+                            console.log('you are not authorized to edit this comment')
+                        }
+                    })
+                this.toggleEditComment()
             }
         }
     }
+
 </script>
 
 <style scoped>
-    .comment-chip{
+    .comment-chip {
         margin-top: .5vh;
         margin-left: .5vw;
     }
-    .comment-card{
+
+    .comment-card {
         width: 100%
     }
 

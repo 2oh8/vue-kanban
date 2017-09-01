@@ -7,7 +7,7 @@
             <p class="card-title">{{task.name}}</p>
             <div v-for="comment in comments" class="row">
 
-                <comment :comment='comment'></comment>
+                <comment class="flipInX" :comment='comment'></comment>
 
             </div>
             <div class="row">
@@ -156,5 +156,37 @@
         backface-visibility: visible !important;
         animation-name: flipInY;
         animation-duration: 500ms;
+    }
+    @keyframes flipInX {
+        from {
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            animation-timing-function: ease-in;
+            opacity: 0;
+        }
+
+        40% {
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            animation-timing-function: ease-in;
+        }
+
+        60% {
+            transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            opacity: 1;
+        }
+
+        80% {
+            transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+        }
+
+        to {
+            transform: perspective(400px);
+        }
+    }
+
+    .flipInX {
+        -webkit-backface-visibility: visible !important;
+        backface-visibility: visible !important;
+        animation-name: flipInX;
+        animation-duration: 1000ms;
     }
 </style>

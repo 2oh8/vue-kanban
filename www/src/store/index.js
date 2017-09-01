@@ -240,6 +240,20 @@ var store = new vuex.Store({
             commit('handleError', err)
           })
     },
+    editComment({ commit, dispatch}, comment) {
+      var updatedCommentObj = {
+        text: comment.text
+      }
+      api.put('comments/' + comment.id, updatedCommentObj)
+        .then(res => {
+          console.log('successful put request')
+          dispatch('getTaskComments', comment)
+        }).catch(err => {
+          console.log('put request failed')
+          commit('handleError', err)
+        })
+
+    },
 
 handleError({ commit, dispatch }, err){
   commit('handleError', err)
