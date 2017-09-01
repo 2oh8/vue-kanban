@@ -10,7 +10,8 @@ module.exports = {
                 boardId: req.params.boardId,
                 listId: req.params.listId
             })
-                .then(tasks => {
+                .sort({created: -1})
+                .exec((err, tasks) => {
                     console.log('found tasks')
                     console.log(tasks)
                     console.log(res)

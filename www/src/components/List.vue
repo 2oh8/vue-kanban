@@ -93,6 +93,7 @@
                 console.log(newTask)
                 debugger
                 this.$store.dispatch('addTask', newTask)
+                this.toggleTaskForm()
             },
             deleteList: function (listId) {
                 console.log(listId)
