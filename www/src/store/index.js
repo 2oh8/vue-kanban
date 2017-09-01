@@ -155,7 +155,6 @@ var store = new vuex.Store({
         .then(res => {
           // console.log(res)
           commit('setLists', res.data.data)
-          // debugger
           // list.listId = list._id
           // dispatch('getListTasks', list)
         })
@@ -188,14 +187,12 @@ var store = new vuex.Store({
     // Task Stuff
     getListTasks({ commit, dispatch }, data) {
       console.log(data.listId)
-      // debugger
       api('boards/' + data.boardId + '/lists/' + data.listId + '/tasks')
         .then(res => {
           res.data.listId = data.listId
           commit('setListTasks', res.data) // check this
         })
         .catch(err => {
-          // debugger
           console.log('getLIstTasks failed')
           commit('handleError', err)
         })

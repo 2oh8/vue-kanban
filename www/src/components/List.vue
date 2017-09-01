@@ -58,7 +58,6 @@
             var customList = this.list
             customList.listId = this.list._id
             this.$store.dispatch('getListTasks', customList)
-            // debugger
             console.log(this.$store.state.tasks[this.list._id])
             // this.$store.dispatch('getLists', this.$route.params.boardId)
         },
@@ -91,7 +90,6 @@
                     listId: this.list._id,
                 }
                 console.log(newTask)
-                debugger
                 this.$store.dispatch('addTask', newTask)
                 this.toggleTaskForm()
             },

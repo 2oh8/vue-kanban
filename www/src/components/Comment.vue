@@ -84,7 +84,6 @@
 
             },
             editComment() {
-                debugger
                 this.$store.dispatch('authenticate')
                     .then(res => {
                         if (this.comment.creatorId == this.user._id) {
