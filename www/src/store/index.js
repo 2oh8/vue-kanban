@@ -17,7 +17,7 @@ vue.use(vuex)
 
 var store = new vuex.Store({
   state: {
-    name: '',
+    user: {},
     boards: [],
     lists: [],
     tasks: {},
@@ -37,8 +37,8 @@ var store = new vuex.Store({
     setLoggedIn(state, value) {
       state.loggedIn = value;
     },
-    setName(state, name) {
-      state.name = name;
+    setUser(state, user) {
+      state.user = user;
     },
     handleError(state, err) {
       state.error = err
@@ -75,7 +75,7 @@ var store = new vuex.Store({
       auth.post('/login', credentials)
         .then(res => {
           commit('setLoggedIn', true)
-          commit('setName', res.data.data.name)
+          commit('setUser', res.data.data)
         }).catch(err => {
           commit('handleError', err)
           commit('setLoggedIn', false)
@@ -98,7 +98,8 @@ var store = new vuex.Store({
           if (res.data.data._id) {
             console.log('Ready to commit!')
             commit('setLoggedIn', true)
-            commit('setName', res.data.data.name)
+            commit('setUser', res.data.data)
+            commit('setUser', res.data.data)
           } else {
             commit('setLoggedIn', false)
             console.log('No session found!')
@@ -231,6 +232,7 @@ var store = new vuex.Store({
       }
     },
     deleteComment({ commit, dispatch }, comment) {
+
         api.delete('comments/' + comment._id)
           .then(res => {
             dispatch('getTaskComments', comment)

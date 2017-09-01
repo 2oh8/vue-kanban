@@ -54,21 +54,22 @@
                 return this.$store.state.comments[this.task._id]
                 // return this.$store.state.lists // make sure this works after adding the add task functionality
             },
-            name() {
-                return this.$store.state.name
+            user() {
+                return this.$store.state.user
             }
         },
         methods: {
             addComment: function () {
                 var newComment = {
                     text: this.text,
-                    commenterName: this.name,
+                    commenterName: this.user.name,
                     boardId: this.$route.params.boardId,
                     listId: this.task.listId,
                     taskId: this.task._id
                 }
 
                 this.$store.dispatch('addComment', newComment)
+                this.text = ''
             },
         }
     }

@@ -34,11 +34,25 @@
             },
             activeBoard() {
                 return this.$store.state.activeBoard
+            },
+            user () {
+                return this.$store.state.user
             }
         },
         methods: {
             deleteComment(){
-                this.$store.dispatch("deleteComment", this.comment)
+                this.$store.dispatch('authenticate')
+                    .then(res => {
+                        if(this.comment.creatorId == this.user._id){
+                            this.$store.dispatch("deleteComment", this.comment)
+                        }
+                        else {
+                            console.log('you are not authorized to delete this comment')
+                        }
+                    }).catch(err => {
+                        console.log('something went wrong with the authenticate request')
+                    })
+
             }
         }
     }
