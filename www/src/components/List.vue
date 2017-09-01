@@ -1,7 +1,7 @@
 <template>
     <div class="flex-container">
 
-        <div class="list flipInY card-panel grey lighten-3 z-depth-5 list-card">
+        <div id="" class="list flipInY card-panel grey lighten-3 z-depth-5 list-card">
             <div>
                 <button class="secondary-content btn-floating z-depth-0 transparent" @click="deleteList(list._id)"><i class="material-icons red-text">delete_forever</i></button>
                 <h5>{{list.name}}</h5>

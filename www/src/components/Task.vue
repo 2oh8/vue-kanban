@@ -1,18 +1,18 @@
 <template>
-<div class="dragArea">
-    
+
+
     <draggable :options="{draggable:'.item', group:'tasks'}">
-        <div class="item card-panel zoomIn hoverable grey lighten-1" >
+        <div class="item card-panel zoomIn hoverable grey lighten-1">
             <button class="secondary-content btn-floating z-depth-0 transparent" @click=""><i class="material-icons red-text">delete_forever</i></button>
             <p class="card-title">{{task.name}}</p>
-            <div class="row">
+            <div v-for="comment in comments" class="row">
 
-                <comment></comment>
+                <comment :comment='comment'></comment>
 
             </div>
             <div class="row">
-                <form @submit.prevent="">
-                    <input type="text" placeholder="Leave a Comment">
+                <form @submit.prevent="addComment">
+                    <input type="text" placeholder="Leave a Comment" v-model="text">
                     <button class="secondary-content btn-floating z-depth-0 transparent" type="submit"><i class="material-icons green-text">comment</i></button>
                 </form>
             </div>
@@ -21,7 +21,7 @@
         <div class="card-panel transparent z-depth-0 item"></div>
         <!-- END COMMENT -->
     </draggable>
-</div>
+
 </template>
 
 <script>
@@ -30,6 +30,11 @@
 
     export default {
         name: 'tasks',
+        data() {
+            return {
+                text: ''
+            }
+        },
         props: [
             "task"
         ],
@@ -39,20 +44,31 @@
             Comment
         },
         mounted() {
+            var customTask = this.task
+            customTask.taskId = this.task._id
+            this.$store.dispatch('getTaskComments', customTask)
 
         },
         computed: {
-            taskList() {
+            comments() {
+                return this.$store.state.comments[this.task._id]
                 // return this.$store.state.lists // make sure this works after adding the add task functionality
             },
+            name() {
+                return this.$store.state.name
+            }
         },
         methods: {
-            add: function () {
-                this.exampleList.push({
-                });
-            },
-            replace: function () {
-                this.exampleList = []
+            addComment: function () {
+                var newComment = {
+                    text: this.text,
+                    commenterName: this.name,
+                    boardId: this.$route.params.boardId,
+                    listId: this.task.listId,
+                    taskId: this.task._id
+                }
+
+                this.$store.dispatch('addComment', newComment)
             },
         }
     }

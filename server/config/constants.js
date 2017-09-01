@@ -20,7 +20,11 @@ const models = {
   task: {
     name: 'Task',
     endpoint: 'tasks',
-    // useCustomRoutes: true
+    useCustomRoutes: true
+  },
+  comment: {
+    name: 'Comment',
+    endpoint: 'comments'
   },
   user: {
     name: 'User',

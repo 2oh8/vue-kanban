@@ -1,10 +1,10 @@
 <template>
     <div class="flex-container">
         <div class="card comment-card grey lighten-2">
-            <p class="comment-chip">Comment goes here.</p>
-            <button class="secondary-content btn-floating z-depth-0 transparent" @click=""><i class="material-icons grey-text">delete_forever</i></button>
+            <p class="comment-chip">{{comment.text}}</p>
+            <button class="secondary-content btn-floating z-depth-0 transparent" @click="deleteComment"><i class="material-icons grey-text">delete_forever</i></button>
             <div class="chip comment-chip grey lighten-1">
-                Username
+                {{comment.commenterName}}  <!-- Need to add in path to post username to the comment -->
             </div>
         </div>
     </div>
@@ -17,11 +17,13 @@
         name: 'comments',
         data: function () {
             return {
-
             }
         },
         components: {
         },
+        props: [
+            'comment'
+        ],
         mounted() {
 
         },
@@ -35,7 +37,9 @@
             }
         },
         methods: {
-
+            deleteComment(){
+                this.$store.dispatch("deleteComment", this.comment)
+            }
         }
     }
 </script>

@@ -14,6 +14,14 @@ module.exports = {
         })
     }
   },
+  getUserById: {
+    path: '/users/:userId',
+    reqType: 'get',
+    method(req, res, next){
+      let action = 'findUserById'
+
+    }
+  },
   sharedBoards: {
     path: '/sharedBoards',
     reqType: 'get',

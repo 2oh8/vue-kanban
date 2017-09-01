@@ -56,7 +56,7 @@
 
     mounted() {
       this.$store.dispatch('getLists', this.$route.params.boardId)
-      // this.$store.dispatch('getBoard',this.$route.params.boardId)
+      this.$store.dispatch('getBoard',this.$route.params.boardId)
 
     },
     components: {
