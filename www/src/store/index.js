@@ -3,13 +3,13 @@ import vue from 'vue'
 import vuex from 'vuex'
 
 let api = axios.create({
-  baseURL: 'http://localhost:3000/api/',
+  baseURL: '//zen-kanban.herokuapp.com/api/',
   timeout: 200000,
   withCredentials: true
 })
 
 let auth = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: '//zen-kanban.herokuapp.com/',
   timeout: 200000,
   withCredentials: true
 })
